@@ -1,8 +1,9 @@
+from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
+from django.db.models import Avg
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from django.db.models import Avg
 from rest_framework import filters, mixins, status, viewsets
 from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.generics import CreateAPIView
@@ -19,7 +20,6 @@ from .serializers import (CategorySerializer, CommentSerializer,
                           GenreSerializer, ReviewSerializer, TitleSerializer,
                           TitleSerializerCreate, UserRegistrSerializer,
                           UserSerializer)
-from django.conf import settings
 
 
 class CreateListDeleteViewSet(mixins.CreateModelMixin,
@@ -101,13 +101,13 @@ class RegistrUserView(CreateAPIView):
         email = serializer.data['email']
         username = serializer.data['username']
         user, _ = User.objects.get_or_create(email=email, username=username)
-        CreateAndSendRegCode(user, email)
+        create_and_send_reg_code(user, email)
         data['email'] = request.data['email']
         data['username'] = request.data['username']
         return Response(data)
 
 
-def CreateAndSendRegCode(user, user_mail):
+def create_and_send_reg_code(user, user_mail):
     reg_code = default_token_generator.make_token(user)
     code = ConfirmCodes(reg_code=reg_code, owner=user)
     code.save()
