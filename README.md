@@ -4,7 +4,7 @@ yamdb_final
 ![example workflow](https://github.com/GEGorm/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 
 ### Расположение проекта
-http://62.84.122.24 - адрес проекта
+http://62.84.122.24 - адрес проекта  
 http://62.84.122.24/redoc/ - документация по api
 
 ### Об авторе.
