@@ -59,7 +59,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'api_yamdb.wsgi.application'
 
-
+# test comment
 # Database
 
 DATABASES = {
